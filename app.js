@@ -28,7 +28,7 @@ app.post('/personas', async (req, res) => {
       'INSERT INTO Persona (nombre, edad, parentesco) VALUES ($1, $2, $3) RETURNING id',
       [nombre, edad, parentesco]
     )
-    res.json({ id: result.rows[0].idpersona })
+    res.json({ id: result.rows[0].id })
   } catch (err) {
     res.status(500).json({ error: err.toString() })
   }
