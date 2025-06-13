@@ -37,7 +37,7 @@ app.post('/personas', async (req, res) => {
 // Listar Personas
 app.get('/personas', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM Persona')
+    const result = await pool.query('SELECT * FROM Persona ORDER BY id DESC')
     res.json(result.rows)
   } catch (err) {
     res.status(500).json({ error: err.toString() })
