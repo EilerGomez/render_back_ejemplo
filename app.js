@@ -25,7 +25,7 @@ app.post('/personas', async (req, res) => {
 
   try {
     const result = await pool.query(
-      'INSERT INTO Persona (nombre, edad, parentesco) VALUES ($1, $2, $3) RETURNING idpersona',
+      'INSERT INTO Persona (nombre, edad, parentesco) VALUES ($1, $2, $3) RETURNING id',
       [nombre, edad, parentesco]
     )
     res.json({ id: result.rows[0].idpersona })
@@ -80,7 +80,7 @@ app.delete('/personas/:id', async (req, res) => {
   const { id } = req.params
 
   try {
-    await pool.query('DELETE FROM Persona WHERE idpersona = $1', [id])
+    await pool.query('DELETE FROM Persona WHERE id = $1', [id])
     res.json({ message: 'Registro eliminado' })
   } catch (err) {
     res.status(500).json({ error: err.toString() })
