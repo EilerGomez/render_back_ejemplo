@@ -49,7 +49,7 @@ app.put('/personas/:id', async (req, res) => {
 
   try {
     await pool.query(
-      'UPDATE Persona SET nombre = $1, edad = $2, parentesco = $3 WHERE idpersona = $4',
+      'UPDATE Persona SET nombre = $1, edad = $2, parentesco = $3 WHERE id = $4',
       [nombre, edad, parentesco, id]
     )
     res.json({ message: 'Registro actualizado' })
