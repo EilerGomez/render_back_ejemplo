@@ -1,9 +1,11 @@
 // app.js
 const express = require('express')
 const { Pool } = require('pg')
+const cors = require('cors'); // Asegúrate de requerir cors
 
 const app = express()
 app.use(express.json())
+app.use(cors());
 
 // Usamos solo DATABASE_URL para la conexión
 const pool = new Pool({
