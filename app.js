@@ -1,17 +1,17 @@
 // app.js
 const express = require('express')
 const { Pool } = require('pg')
-const cors = require('cors'); // Asegúrate de requerir cors
+const cors = require('cors'); 
 
 const app = express()
 app.use(express.json())
 app.use(cors());
 
-// Usamos solo DATABASE_URL para la conexión
+// Usamos solo DATABASE_URL en back render debe ser la url interna
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false  // necesario si Render usa SSL sin certificado válido
+    rejectUnauthorized: false  
   }
 })
 
@@ -55,7 +55,7 @@ app.get('/personas/:id', async (req, res) => {
 
     res.json(result.rows[0]);
   } catch (err) {
-    res.status(500).json({ error: err.message }); // Usar err.message en lugar de err.toString()
+    res.status(500).json({ error: err.message }); 
   }
 });
 
