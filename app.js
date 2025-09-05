@@ -25,7 +25,7 @@ app.post('/personas', async (req, res) => {
 
   try {
     const result = await pool.query(
-      'INSERT INTO Persona (nombre, edad, parentesco) VALUES ($1, $2, $3) RETURNING id',
+      'INSERT INTO persona (nombre, edad, parentesco) VALUES ($1, $2, $3) RETURNING id',
       [nombre, edad, parentesco]
     )
     res.json({ id: result.rows[0].id })
@@ -37,7 +37,7 @@ app.post('/personas', async (req, res) => {
 // Listar Personas
 app.get('/personas', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM Persona ORDER BY id DESC')
+    const result = await pool.query('SELECT * FROM persona ORDER BY id DESC')
     res.json(result.rows)
   } catch (err) {
     res.status(500).json({ error: err.toString() })
@@ -47,7 +47,7 @@ app.get('/personas', async (req, res) => {
 app.get('/personas/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await pool.query('SELECT * FROM Persona WHERE id = $1', [id]);
+    const result = await pool.query('SELECT * FROM persona WHERE id = $1', [id]);
     
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Persona no encontrada' });
@@ -66,7 +66,7 @@ app.put('/personas/:id', async (req, res) => {
 
   try {
     await pool.query(
-      'UPDATE Persona SET nombre = $1, edad = $2, parentesco = $3 WHERE id = $4',
+      'UPDATE persona SET nombre = $1, edad = $2, parentesco = $3 WHERE id = $4',
       [nombre, edad, parentesco, id]
     )
     res.json({ message: 'Registro actualizado' })
@@ -80,7 +80,7 @@ app.delete('/personas/:id', async (req, res) => {
   const { id } = req.params
 
   try {
-    await pool.query('DELETE FROM Persona WHERE id = $1', [id])
+    await pool.query('DELETE FROM persona WHERE id = $1', [id])
     res.json({ message: 'Registro eliminado' })
   } catch (err) {
     res.status(500).json({ error: err.toString() })
